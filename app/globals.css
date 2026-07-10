@@ -23,18 +23,6 @@
   --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --secondary: #e2e8f0;
-    --background: #0b1220;
-    --background-light: #111a2c;
-    --border: #1f2937;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #64748b;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--text-primary);

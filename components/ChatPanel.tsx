@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { useChat } from "@ai-sdk/react";
 import { ChatInput } from "@/components/ChatInput";
 import { MessageBubble } from "@/components/MessageBubble";
-import { SUGGESTED_PROMPTS } from "@/lib/constants";
 
 export function ChatPanel() {
   const { messages, sendMessage, regenerate, status, error, clearError } = useChat();
@@ -32,18 +31,9 @@ export function ChatPanel() {
               <h1 className="text-lg font-semibold text-secondary">
                 How can I help with your SEO today?
               </h1>
-              <div className="grid w-full gap-2 sm:grid-cols-2">
-                {SUGGESTED_PROMPTS.map((prompt) => (
-                  <button
-                    key={prompt}
-                    type="button"
-                    onClick={() => handleSend(prompt)}
-                    className="rounded-xl border border-border bg-background-light px-4 py-3 text-left text-sm text-text-secondary hover:border-primary/40 hover:text-text-primary"
-                  >
-                    {prompt}
-                  </button>
-                ))}
-              </div>
+              <p className="text-sm text-text-muted">
+                Ask me anything about SEO and I&apos;ll do my best to help.
+              </p>
             </div>
           ) : (
             <div className="py-4">
