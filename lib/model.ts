@@ -12,3 +12,15 @@ const google = createGoogleGenerativeAI({
 export function getChatModel(): LanguageModel {
   return AI_PROVIDER === "google" ? google(AI_MODEL) : anthropic(AI_MODEL);
 }
+
+/**
+ * Gemini's "-latest" models default to an extended "thinking" pass before
+ * responding, which can push simple chat replies past Vercel's function
+ * timeout. Capping it keeps responses fast without disabling reasoning
+ * entirely. No equivalent setting is needed for Claude.
+ */
+export function getProviderOptions() {
+  return AI_PROVIDER === "google"
+    ? { google: { thinkingConfig: { thinkingLevel: "low" as const } } }
+    : undefined;
+}
