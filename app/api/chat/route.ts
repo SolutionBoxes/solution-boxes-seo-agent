@@ -1,8 +1,7 @@
-import { anthropic } from "@ai-sdk/anthropic";
 import { after } from "next/server";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
 import { getSystemPrompt } from "@/lib/system-prompt";
-import { CLAUDE_MODEL } from "@/lib/constants";
+import { getChatModel } from "@/lib/model";
 import { trackMessage, trackNewSession } from "@/lib/analytics";
 
 export const runtime = "nodejs";
@@ -19,7 +18,7 @@ export async function POST(req: Request) {
   });
 
   const result = streamText({
-    model: anthropic(CLAUDE_MODEL),
+    model: getChatModel(),
     system: getSystemPrompt(),
     messages: await convertToModelMessages(messages),
   });
