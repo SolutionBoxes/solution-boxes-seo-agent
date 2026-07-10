@@ -1,21 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const NAV_ITEMS = [
+  { label: "Analytics", href: "/admin/analytics" },
   { label: "Settings", href: "#" },
   { label: "Documentation", href: "#" },
   { label: "About", href: "#" },
 ];
 
-export function Sidebar({
-  open,
-  onNewChat,
-}: {
-  open: boolean;
-  onNewChat: () => void;
-}) {
+export function Sidebar({ open }: { open: boolean }) {
   const [search, setSearch] = useState("");
+  const router = useRouter();
+
+  async function handleLogout() {
+    await fetch("/api/admin/logout", { method: "POST" });
+    router.push("/admin/login");
+    router.refresh();
+  }
 
   return (
     <aside
@@ -24,13 +28,12 @@ export function Sidebar({
       } w-64 shrink-0 flex-col border-r border-border bg-background-light md:flex`}
     >
       <div className="p-3">
-        <button
-          type="button"
-          onClick={onNewChat}
+        <a
+          href="/admin"
           className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:brightness-105"
         >
           + New Chat
-        </button>
+        </a>
       </div>
 
       <div className="px-3 pb-2">
@@ -53,14 +56,21 @@ export function Sidebar({
 
       <nav className="border-t border-border p-3">
         {NAV_ITEMS.map((item) => (
-          <a
+          <Link
             key={item.label}
             href={item.href}
             className="block rounded-md px-2 py-1.5 text-sm text-text-secondary hover:bg-background hover:text-secondary"
           >
             {item.label}
-          </a>
+          </Link>
         ))}
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="mt-1 block w-full rounded-md px-2 py-1.5 text-left text-sm text-text-secondary hover:bg-background hover:text-secondary"
+        >
+          Log out
+        </button>
       </nav>
     </aside>
   );
