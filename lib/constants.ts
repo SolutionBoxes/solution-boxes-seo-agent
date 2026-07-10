@@ -7,7 +7,10 @@ export const APP_NAME = "Solution Boxes SEO Agent";
 export const AI_PROVIDER = (process.env.AI_PROVIDER ?? "google") as "google" | "anthropic";
 
 const DEFAULT_MODEL: Record<typeof AI_PROVIDER, string> = {
-  google: "gemini-2.5-flash",
+  // "-latest" is a stable Google alias that always points at their current
+  // recommended flash model, so this doesn't go stale like a pinned
+  // snapshot (e.g. "gemini-2.5-flash") eventually does.
+  google: "gemini-flash-latest",
   anthropic: "claude-sonnet-5",
 };
 
