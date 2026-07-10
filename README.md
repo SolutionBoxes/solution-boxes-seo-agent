@@ -55,14 +55,14 @@ app/
     (dashboard)/page.tsx           admin chat view (renders ChatPanel)
     (dashboard)/analytics/page.tsx usage dashboard, reads lib/analytics.ts
 components/
-  ChatPanel.tsx                    chat state (useChat), messages, suggested prompts, input — shared by / and /admin
+  ChatPanel.tsx                    chat state (useChat), messages, greeting, input — shared by / and /admin
   Header.tsx                       app header with Live status badge; sidebar toggle is optional (public page omits it)
   Sidebar.tsx                      admin-only nav: new chat, search, recent chats, Analytics, settings, log out
   ChatInput.tsx                    auto-resizing input with send button
   MessageBubble.tsx                renders a single message; markdown for assistant replies
 lib/
   system-prompt.ts                 reads prompts/system-prompt.md at request time
-  constants.ts                     app-wide constants (model id, suggested prompts)
+  constants.ts                     app-wide constants (model id)
   auth.ts                          signs/verifies the admin session cookie (HMAC, stateless)
   analytics.ts                     Redis-backed counters for conversations/messages; no-ops if unconfigured
 proxy.ts                            protects /admin/* (redirects to /admin/login when unauthenticated)
